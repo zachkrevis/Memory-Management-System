@@ -21,6 +21,9 @@ enum policy_type
     MM_THIRD = 2, // Third Chance Replacement Policy
 };
 
+// Global vars
+struct sigaction sa;
+
 // APIs
 void mm_init(enum policy_type policy, void *vm, int vm_size, int num_frames, int page_size);
 

@@ -5,7 +5,7 @@
 
 // Declare your own data structures and functions here...
 
-
+void handler(int sig, siginfo_t* info, void* ucontext);
 
 
 
