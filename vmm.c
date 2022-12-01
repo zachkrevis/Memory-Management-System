@@ -3,7 +3,7 @@
 // Memory Manager implementation
 // Implement all other functions here...
 
-void handler(int sig, siginfo_t* info, void* ucontext)
+void handler1(int sig, siginfo_t* info, void* ucontext)
 {
     printf("transfer control to handler\n");
     if (sig == SIGSEGV)
@@ -12,20 +12,38 @@ void handler(int sig, siginfo_t* info, void* ucontext)
         long long err = ctx->uc_mcontext.gregs[REG_ERR];
         void* addr = info->si_addr;
 
-        if (err == 4)
-        {
-            printf("its a sigsegv from read access at address %p\n", addr);
-        }
-        else if (err == 6)
+        if (err & 0x2)
         {
             printf("its a sigsegv from write access at address %p\n", addr);
         }
         else
         {
-            printf("its sigsegv from an unknown access with err = %lld at address %p\n", err, addr);
+            printf("its a sigsegv from read access at address %p\n", addr);
         }
     }
-    raise(SIGKILL);
+    // logger(fault, asdklfj;alsdjkf, )
+    return;
+}
+
+void handler2(int sig, siginfo_t* info, void* ucontext)
+{
+    printf("transfer control to handler\n");
+    if (sig == SIGSEGV)
+    {
+        ucontext_t* ctx = (ucontext_t*)ucontext;
+        long long err = ctx->uc_mcontext.gregs[REG_ERR];
+        void* addr = info->si_addr;
+
+        if (err & 0x2)
+        {
+            printf("its a sigsegv from write access at address %p\n", addr);
+        }
+        else
+        {
+            printf("its a sigsegv from read access at address %p\n", addr);
+        }
+    }
+    // logger
     return;
 }
 
