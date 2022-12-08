@@ -22,7 +22,20 @@ enum policy_type
 };
 
 // Global vars
+int PAGE_SIZE;
+int NUM_FRAMES;
+int USED_FRAMES;
+void* START_OF_VM;
+int PHY_MEMORY_SIZE;
+struct entry** phy_memory;
+bool phy_memory_full;
+int front_of_lst;
+int rear_of_lst;
+
 struct sigaction sa;
+
+struct frame* fifo_frames;
+struct v_page_FIFO* fifo_queue;
 
 // APIs
 void mm_init(enum policy_type policy, void *vm, int vm_size, int num_frames, int page_size);
